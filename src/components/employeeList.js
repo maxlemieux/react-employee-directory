@@ -12,7 +12,10 @@ class employeeList extends Component {
   componentDidMount() {
     axios.get(`https://randomuser.me/api/?results=200&nat=us`)
       .then(res => {
-        const employees = res.data.results;
+        // const employees = res.data.results;
+        let employees = res.data.results;
+        // console.log(employees.sort((a, b) => parseInt(a.name.first) - parseInt(b.name.first)));
+
         this.setState({ employees, employeesFiltered: employees });
       })
   };
@@ -28,8 +31,6 @@ class employeeList extends Component {
       }),
     });
   };
-
-  
 
   render() {
     return (
