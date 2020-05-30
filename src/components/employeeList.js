@@ -17,6 +17,7 @@ class employeeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      filter: '',
       employees: [],
       employeesFiltered: [],
       sortOrder: 'lastName',
@@ -75,34 +76,40 @@ class employeeList extends Component {
   };
 
   handleSearchFilter = filter => {
+    const employeesFiltered = this.state.employees.filter(function(person) {
+      const regex = new RegExp(`${filter}`, 'gi');
+      return regex.test(person.name.first)
+        || regex.test(person.name.last)
+        || regex.test(person.email);
+    });
+
+    if (this.state.sortReversed) {
+      employeesFiltered.reverse();
+    };
     this.setState({
       filter,
-      employeesFiltered: this.state.employees.filter(function(person) {
-        const regex = new RegExp(`${filter}`, 'gi');
-        return regex.test(person.name.first)
-          || regex.test(person.name.last)
-          || regex.test(person.email);
-      }),
+      employeesFiltered,
     });
+    // this.sortEmployees(null, this.state.sortOrder)
   };
 
-  sortEmployees = (e, sortOrder) => {
+  sortEmployees = (sortOrder) => {
     let employees = this.state.employees;
     if (sortOrder === 'lastName') employees.sort( this.compareLastName );
     if (sortOrder === 'phone') employees.sort( this.comparePhone );
     if (sortOrder === 'email') employees.sort( this.compareEmail );
     if (sortOrder === 'dob') employees.sort( this.compareDob );
 
+    let newReverseState = false;
     if (this.state.sortOrder === sortOrder) {
       /* This was already the active header, so reverse the current order */
-      this.setState({ sortReversed: this.state.sortReversed ? false : true });
-    } else {
-      /* This was not the active header, set sortReversed to false */
-      this.setState({ sortReversed: false });
-    };
+      newReverseState = this.state.sortReversed ? false : true;
+    }
+
     if (this.state.sortReversed) {
       employees.reverse();
     }
+    this.setState({sortReversed: newReverseState });
     this.setState({sortOrder})
     this.setState({employees});
   }
@@ -117,25 +124,25 @@ class employeeList extends Component {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell onClick={e => this.sortEmployees(e, 'lastName')}>
+              <TableCell onClick={e => this.sortEmployees('lastName')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Name 
                   {this.state.sortOrder==='lastName' && <ArrowDropDownIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={e => this.sortEmployees(e, 'phone')}>
+              <TableCell onClick={e => this.sortEmployees('phone')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Phone
                   {this.state.sortOrder==='phone' && <ArrowDropDownIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={e => this.sortEmployees(e, 'email')}>
+              <TableCell onClick={e => this.sortEmployees('email')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Email 
                   {this.state.sortOrder==='email' && <ArrowDropDownIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={e => this.sortEmployees(e, 'dob')}>
+              <TableCell onClick={e => this.sortEmployees('dob')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   DOB
                   {this.state.sortOrder==='dob' && <ArrowDropDownIcon />}
