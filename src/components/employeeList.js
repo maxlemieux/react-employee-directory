@@ -9,12 +9,24 @@ class employeeList extends Component {
     employeesFiltered: [],
   };
 
+  // https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
+  compare(a, b) {
+    if ( a.name.first < b.name.first ){
+      return -1;
+    }
+    if ( a.name.first > b.name.first ){
+      return 1;
+    }
+    return 0;
+  
+  }
+
   componentDidMount() {
     axios.get(`https://randomuser.me/api/?results=200&nat=us`)
       .then(res => {
         // const employees = res.data.results;
         let employees = res.data.results;
-        // console.log(employees.sort((a, b) => parseInt(a.name.first) - parseInt(b.name.first)));
+        employees.sort( this.compare );
 
         this.setState({ employees, employeesFiltered: employees });
       })

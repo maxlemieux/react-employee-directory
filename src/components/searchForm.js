@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, TextField } from '@material-ui/core';
 
 class SearchForm extends Component {
   state = {
@@ -20,17 +21,16 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <div>
+      <Container maxWidth="lg">
         <form className="form">
-          <input
-            value={this.state.search}
-            name="search"
+          <TextField 
+            variant='outlined'
+            label='Search'
             onChange={this.handleInputChange}
-            type="text"
-            placeholder="Search"
-          />
+            // value={this.state.search}
+        />
         </form>
-      </div>
+      </Container>
     );
   }
 }

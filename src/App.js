@@ -1,15 +1,18 @@
 import React from 'react';
 import './App.css';
 import EmployeeList from './components/employeeList';
+import { Container } from '@material-ui/core';
 
 function App() {
   return (
-    <div className="App">
+    <Container>
       <header className="App-header">
         <h1>Employee List</h1>
       </header>
-      <EmployeeList />
-    </div>
+      <Container>
+        <EmployeeList />
+      </Container>
+    </Container>
   );
 }
 
