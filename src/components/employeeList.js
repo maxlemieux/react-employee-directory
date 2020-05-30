@@ -11,7 +11,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import SearchForm from './searchForm.js';
+import SearchForm from './SearchForm.js';
+import AppHeader from './AppHeader.js';
 
 class employeeList extends Component {
   constructor(props) {
@@ -118,6 +119,7 @@ class employeeList extends Component {
   render() {
     return (
       <div>
+        <AppHeader handleSearchFilter={this.handleSearchFilter} />
         <SearchForm handleSearchFilter={this.handleSearchFilter} />
 
         <TableContainer component={Paper}>

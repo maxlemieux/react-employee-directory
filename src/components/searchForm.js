@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 
 class SearchForm extends Component {
   state = {
     search: "",
   };
+
+  style = {
+    margin: '10px auto 10px',
+    textAlign: 'center',
+  }
 
   handleInputChange = event => {
     let value = event.target.value;
@@ -17,13 +23,18 @@ class SearchForm extends Component {
 
   render() {
     return (
-          <TextField 
-            variant='outlined'
-            label='Search'
-            name='search'
-            onChange={this.handleInputChange}
-            // value={this.state.search}
-          />
+      <Container
+        style={this.style}
+      >
+        <TextField 
+          variant='outlined'
+          label='Search'
+          name='search'
+          onChange={this.handleInputChange}
+          // value={this.state.search}
+        />
+      </Container>
+      
     );
   }
 }
