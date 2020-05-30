@@ -94,23 +94,25 @@ class employeeList extends Component {
     // this.sortEmployees(null, this.state.sortOrder)
   };
 
-  sortEmployees = (sortOrder, sortFunc) => {
+  sortEmployees = (sortFunc) => {
     let employeesFiltered = this.state.employeesFiltered;
-
     employeesFiltered.sort(this[sortFunc]);
     
-    let newReverseState = false;
-    if (this.state.sortOrder === sortOrder) {
+    if (this.state.sortFunc === sortFunc) {
       /* This was already the active header, so reverse the current order */
-      newReverseState = this.state.sortReversed ? false : true;
+      this.setState(
+        {sortReversed: this.state.sortReversed ? false : true },
+        () => {
+          if (this.state.sortReversed === true) {
+            this.setState({employeesFiltered: employeesFiltered.reverse()});   
+          }
+        }
+      );
     }
-
-    if (this.state.sortReversed === true) {
-      employeesFiltered.reverse();
-    }
-    this.setState({sortReversed: newReverseState });
-    this.setState({sortOrder})
-    this.setState({employeesFiltered});
+    
+    this.setState({
+      sortFunc
+    });
   }
 
   render() {
@@ -123,46 +125,46 @@ class employeeList extends Component {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell onClick={() => this.sortEmployees('lastName', 'compareLastName')}>
+              <TableCell onClick={() => this.sortEmployees('compareLastName')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Name 
-                  {this.state.sortOrder==='lastName'
+                  {this.state.sortFunc==='compareLastName'
                    && this.state.sortReversed === true
                    && <ArrowDropDownIcon />}
-                  {this.state.sortOrder==='lastName'
+                  {this.state.sortFunc==='compareLastName'
                    && this.state.sortReversed === false
                    && <ArrowDropUpIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={() => this.sortEmployees('phone', 'comparePhone')}>
+              <TableCell onClick={() => this.sortEmployees('comparePhone')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Phone
-                  {this.state.sortOrder==='phone'
+                  {this.state.sortFunc==='comparePhone'
                    && this.state.sortReversed === true
                    && <ArrowDropDownIcon />}
-                  {this.state.sortOrder==='phone'
+                  {this.state.sortFunc==='comparePhone'
                    && this.state.sortReversed === false
                    && <ArrowDropUpIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={() => this.sortEmployees('email', 'compareEmail')}>
+              <TableCell onClick={() => this.sortEmployees('compareEmail')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Email 
-                  {this.state.sortOrder==='email'
+                  {this.state.sortFunc==='compareEmail'
                    && this.state.sortReversed === true
                    && <ArrowDropDownIcon />}
-                  {this.state.sortOrder==='email'
+                  {this.state.sortFunc==='compareEmail'
                    && this.state.sortReversed === false
                    && <ArrowDropUpIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={() => this.sortEmployees('dob', 'compareDob')}>
+              <TableCell onClick={() => this.sortEmployees('compareDob')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   DOB
-                  {this.state.sortOrder==='dob'
+                  {this.state.sortFunc==='compareDob'
                    && this.state.sortReversed === true
                    && <ArrowDropDownIcon />}
-                  {this.state.sortOrder==='dob'
+                  {this.state.sortFunc==='compareDob'
                    && this.state.sortReversed === false
                    && <ArrowDropUpIcon />}
                 </div>
@@ -173,7 +175,7 @@ class employeeList extends Component {
             { this.state.employeesFiltered.map(person => {
               return (
                 // <Paper>foo</Paper>
-                <TableRow>
+                <TableRow key={person.email+person.phone}>
                   <TableCell><img src={person.picture.thumbnail} alt={person.name.first} /></TableCell>
                   <TableCell>{person.name.last}, {person.name.first}</TableCell>
                   <TableCell>{person.phone}</TableCell>
