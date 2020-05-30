@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearchForm from './searchForm.js';
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import SearchForm from './searchForm.js';
 
 class employeeList extends Component {
   constructor(props) {
@@ -93,13 +93,11 @@ class employeeList extends Component {
     // this.sortEmployees(null, this.state.sortOrder)
   };
 
-  sortEmployees = (sortOrder) => {
+  sortEmployees = (sortOrder, sortFunc) => {
     let employees = this.state.employees;
-    if (sortOrder === 'lastName') employees.sort( this.compareLastName );
-    if (sortOrder === 'phone') employees.sort( this.comparePhone );
-    if (sortOrder === 'email') employees.sort( this.compareEmail );
-    if (sortOrder === 'dob') employees.sort( this.compareDob );
 
+    employees.sort(this[sortFunc]);
+    
     let newReverseState = false;
     if (this.state.sortOrder === sortOrder) {
       /* This was already the active header, so reverse the current order */
@@ -124,28 +122,48 @@ class employeeList extends Component {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell onClick={e => this.sortEmployees('lastName')}>
+              <TableCell onClick={() => this.sortEmployees('lastName', 'compareLastName')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Name 
-                  {this.state.sortOrder==='lastName' && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='lastName'
+                   && this.state.sortReversed === true
+                   && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='lastName'
+                   &&this.state.sortReversed === false
+                   && <ArrowDropUpIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={e => this.sortEmployees('phone')}>
+              <TableCell onClick={() => this.sortEmployees('phone', 'comparePhone')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Phone
-                  {this.state.sortOrder==='phone' && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='phone'
+                   && this.state.sortReversed === true
+                   && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='phone'
+                   && this.state.sortReversed === false
+                   && <ArrowDropUpIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={e => this.sortEmployees('email')}>
+              <TableCell onClick={() => this.sortEmployees('email', 'compareEmail')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   Email 
-                  {this.state.sortOrder==='email' && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='email'
+                   && this.state.sortReversed === true
+                   && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='email'
+                   && this.state.sortReversed === false
+                   && <ArrowDropUpIcon />}
                 </div>
               </TableCell>
-              <TableCell onClick={e => this.sortEmployees('dob')}>
+              <TableCell onClick={() => this.sortEmployees('dob', 'compareDob')}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   DOB
-                  {this.state.sortOrder==='dob' && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='dob'
+                   && this.state.sortReversed === true
+                   && <ArrowDropDownIcon />}
+                  {this.state.sortOrder==='dob'
+                   && this.state.sortReversed === false
+                   && <ArrowDropUpIcon />}
                 </div>
               </TableCell>
             </TableRow>
