@@ -88,33 +88,23 @@ class employeeList extends Component {
 
   sortEmployees = (e, sortOrder) => {
     let employees = this.state.employees;
-    if (sortOrder === 'lastName') {
-      console.log('sorting by last name')
-      if (this.state.sortOrder === 'lastName') {
-        /* Reverse the order */
-        this.setState({ sortReversed: true });
-      };
-      employees.sort( this.compareLastName );
-      this.setState({sortOrder})
+    if (sortOrder === 'lastName') employees.sort( this.compareLastName );
+    if (sortOrder === 'phone') employees.sort( this.comparePhone );
+    if (sortOrder === 'email') employees.sort( this.compareEmail );
+    if (sortOrder === 'dob') employees.sort( this.compareDob );
+
+    if (this.state.sortOrder === sortOrder) {
+      /* This was already the active header, so reverse the current order */
+      this.setState({ sortReversed: this.state.sortReversed ? false : true });
+    } else {
+      /* This was not the active header, set sortReversed to false */
+      this.setState({ sortReversed: false });
+    };
+    if (this.state.sortReversed) {
+      employees.reverse();
     }
-    if (sortOrder === 'phone') {
-      console.log('sorting by phone')
-      employees.sort( this.comparePhone );
-      this.setState({sortOrder})
-    }
-    if (sortOrder === 'email') {
-      console.log('sorting by email')
-      employees.sort( this.compareEmail );
-      this.setState({sortOrder})
-    }
-    if (sortOrder === 'dob') {
-      console.log('sorting by DOB')
-      employees.sort( this.compareDob );
-      this.setState({sortOrder})
-    }
-    this.setState({
-      employees,
-    })
+    this.setState({sortOrder})
+    this.setState({employees});
   }
 
   render() {
