@@ -3,17 +3,27 @@ import axios from 'axios';
 import SearchForm from './searchForm.js';
 // import { Paper } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-class employeeList extends Component {
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+
+class employeeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       employees: [],
-      sortOrder: 'lastName',
       employeesFiltered: [],
+      sortOrder: 'lastName',
+      sortReversed: false,
     };
   
-    this.setSort = this.setSort.bind(this)
+    this.sortEmployees = this.sortEmployees.bind(this)
   }
   // const employees = axios.get("https://randomuser.me/api/?results=200&nat=us");
   
@@ -54,11 +64,13 @@ class employeeList extends Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount fired')
     axios.get(`https://randomuser.me/api/?results=200&nat=us`)
       .then(res => {
         let employees = res.data.results;
+        /* Initial sort */
         employees.sort( this.compareLastName );
-        
+        /* The first filtered set is the full set */
         this.setState({ employees, employeesFiltered: employees });
       })
   };
@@ -75,27 +87,27 @@ class employeeList extends Component {
     });
   };
 
-  setSort = (e, sortOrder) => {
+  sortEmployees = (e, sortOrder) => {
     let employees = this.state.employees;
     if (sortOrder === 'lastName') {
       console.log('sorting by last name')
       employees.sort( this.compareLastName );
-      this.setState({'sortOrder': 'lastName'})
+      this.setState({sortOrder})
     }
     if (sortOrder === 'phone') {
       console.log('sorting by phone')
       employees.sort( this.comparePhone );
-      this.setState({'sortOrder': 'lastName'})
+      this.setState({sortOrder})
     }
     if (sortOrder === 'email') {
       console.log('sorting by email')
       employees.sort( this.compareEmail );
-      this.setState({'sortOrder': 'lastName'})
+      this.setState({sortOrder})
     }
     if (sortOrder === 'dob') {
       console.log('sorting by DOB')
       employees.sort( this.compareDob );
-      this.setState({'sortOrder': 'lastName'})
+      this.setState({sortOrder})
     }
     this.setState({
       employees,
@@ -107,32 +119,45 @@ class employeeList extends Component {
       <div>
         <SearchForm handleSearchFilter={this.handleSearchFilter} />
 
-        <table>
-          <tbody>
-            <tr>
-              <th></th>
-              <th onClick={e => this.setSort(e, 'lastName')}>
+        <TableContainer component={Paper}>
+        <Table aria-label="Employee List">
+          <TableHead>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell onClick={e => this.sortEmployees(e, 'lastName')}>
                 Name 
                 {this.state.sortOrder==='lastName' && <ArrowDropDownIcon />}
-                </th>
-              <th onClick={e => this.setSort(e, 'phone')}>Phone</th>
-              <th onClick={e => this.setSort(e, 'email')}>Email</th>
-              <th onClick={e => this.setSort(e, 'dob')}>DOB</th>
-            </tr>
+              </TableCell>
+              <TableCell onClick={e => this.sortEmployees(e, 'phone')}>
+                Phone
+                {this.state.sortOrder==='phone' && <ArrowDropDownIcon />}
+              </TableCell>
+              <TableCell onClick={e => this.sortEmployees(e, 'email')}>
+                Email 
+                {this.state.sortOrder==='email' && <ArrowDropDownIcon />}
+              </TableCell>
+              <TableCell onClick={e => this.sortEmployees(e, 'dob')}>
+                DOB
+                {this.state.sortOrder==='dob' && <ArrowDropDownIcon />}
+              </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
             { this.state.employeesFiltered.map(person => {
               return (
                 // <Paper>foo</Paper>
-                <tr>
-                  <td><img src={person.picture.thumbnail} alt={person.name.first} /></td>
-                  <td>{person.name.last}, {person.name.first}</td>
-                  <td>{person.phone}</td>
-                  <td>{person.email}</td>
-                  <td>{person.dob.date}</td>
-                </tr>
+                <TableRow>
+                  <TableCell><img src={person.picture.thumbnail} alt={person.name.first} /></TableCell>
+                  <TableCell>{person.name.last}, {person.name.first}</TableCell>
+                  <TableCell>{person.phone}</TableCell>
+                  <TableCell>{person.email}</TableCell>
+                  <TableCell>{person.dob.date}</TableCell>
+                </TableRow>
               )
             })}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
+        </TableContainer>
       </div>
     )
   }
