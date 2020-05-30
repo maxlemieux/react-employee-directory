@@ -21,6 +21,7 @@ class employeeList extends Component {
       employees: [],
       employeesFiltered: [],
       sortOrder: 'lastName',
+      sortFunc: 'compareLastName',
       sortReversed: false,
     };
   
@@ -83,7 +84,7 @@ class employeeList extends Component {
         || regex.test(person.email);
     });
 
-    if (this.state.sortReversed) {
+    if (this.state.sortReversed === true) {
       employeesFiltered.reverse();
     };
     this.setState({
@@ -94,9 +95,9 @@ class employeeList extends Component {
   };
 
   sortEmployees = (sortOrder, sortFunc) => {
-    let employees = this.state.employees;
+    let employeesFiltered = this.state.employeesFiltered;
 
-    employees.sort(this[sortFunc]);
+    employeesFiltered.sort(this[sortFunc]);
     
     let newReverseState = false;
     if (this.state.sortOrder === sortOrder) {
@@ -104,12 +105,12 @@ class employeeList extends Component {
       newReverseState = this.state.sortReversed ? false : true;
     }
 
-    if (this.state.sortReversed) {
-      employees.reverse();
+    if (this.state.sortReversed === true) {
+      employeesFiltered.reverse();
     }
     this.setState({sortReversed: newReverseState });
     this.setState({sortOrder})
-    this.setState({employees});
+    this.setState({employeesFiltered});
   }
 
   render() {
@@ -129,7 +130,7 @@ class employeeList extends Component {
                    && this.state.sortReversed === true
                    && <ArrowDropDownIcon />}
                   {this.state.sortOrder==='lastName'
-                   &&this.state.sortReversed === false
+                   && this.state.sortReversed === false
                    && <ArrowDropUpIcon />}
                 </div>
               </TableCell>

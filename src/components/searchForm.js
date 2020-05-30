@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
 
 class SearchForm extends Component {
   state = {
@@ -10,10 +9,6 @@ class SearchForm extends Component {
   handleInputChange = event => {
     let value = event.target.value;
     const name = event.target.name;
-    // if (name === 'password' && value.length > 15) {
-    //   alert('foo')
-    //   value=value.substring(0,14)
-    // }
     this.setState({
       [name]: value
     });
