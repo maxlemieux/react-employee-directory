@@ -22,8 +22,6 @@ class SearchForm extends Component {
 
   render() {
     return (
-     <Grid>
-        <Grid item xs={12}>
           <TextField 
             variant='outlined'
             label='Search'
@@ -31,8 +29,6 @@ class SearchForm extends Component {
             onChange={this.handleInputChange}
             // value={this.state.search}
           />
-        </Grid>
-      </Grid>
     );
   }
 }

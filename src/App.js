@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import EmployeeList from './components/employeeList';
 import Container from '@material-ui/core/Container';
+import EmployeeList from './components/employeeList';
 
 function App() {
   return (
