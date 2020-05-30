@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import SearchForm from './searchForm.js';
-// import { Paper } from '@material-ui/core';
+
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import Table from '@material-ui/core/Table';
@@ -25,7 +25,6 @@ class employeeList extends Component {
   
     this.sortEmployees = this.sortEmployees.bind(this)
   }
-  // const employees = axios.get("https://randomuser.me/api/?results=200&nat=us");
   
   // https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
   compareLastName(a, b) {
@@ -91,6 +90,10 @@ class employeeList extends Component {
     let employees = this.state.employees;
     if (sortOrder === 'lastName') {
       console.log('sorting by last name')
+      if (this.state.sortOrder === 'lastName') {
+        /* Reverse the order */
+        this.setState({ sortReversed: true });
+      };
       employees.sort( this.compareLastName );
       this.setState({sortOrder})
     }
@@ -125,24 +128,32 @@ class employeeList extends Component {
             <TableRow>
               <TableCell></TableCell>
               <TableCell onClick={e => this.sortEmployees(e, 'lastName')}>
-                Name 
-                {this.state.sortOrder==='lastName' && <ArrowDropDownIcon />}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  Name 
+                  {this.state.sortOrder==='lastName' && <ArrowDropDownIcon />}
+                </div>
               </TableCell>
               <TableCell onClick={e => this.sortEmployees(e, 'phone')}>
-                Phone
-                {this.state.sortOrder==='phone' && <ArrowDropDownIcon />}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  Phone
+                  {this.state.sortOrder==='phone' && <ArrowDropDownIcon />}
+                </div>
               </TableCell>
               <TableCell onClick={e => this.sortEmployees(e, 'email')}>
-                Email 
-                {this.state.sortOrder==='email' && <ArrowDropDownIcon />}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  Email 
+                  {this.state.sortOrder==='email' && <ArrowDropDownIcon />}
+                </div>
               </TableCell>
               <TableCell onClick={e => this.sortEmployees(e, 'dob')}>
-                DOB
-                {this.state.sortOrder==='dob' && <ArrowDropDownIcon />}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  DOB
+                  {this.state.sortOrder==='dob' && <ArrowDropDownIcon />}
+                </div>
               </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             { this.state.employeesFiltered.map(person => {
               return (
                 // <Paper>foo</Paper>

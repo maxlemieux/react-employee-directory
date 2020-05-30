@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 class SearchForm extends Component {
   state = {
@@ -22,15 +22,17 @@ class SearchForm extends Component {
 
   render() {
     return (
-    <Container>
-      <TextField 
-        variant='outlined'
-        label='Search'
-        name='search'
-        onChange={this.handleInputChange}
-        // value={this.state.search}
-      />
-      </Container>
+     <Grid>
+        <Grid item xs={12}>
+          <TextField 
+            variant='outlined'
+            label='Search'
+            name='search'
+            onChange={this.handleInputChange}
+            // value={this.state.search}
+          />
+        </Grid>
+      </Grid>
     );
   }
 }
