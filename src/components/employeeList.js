@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -181,7 +182,7 @@ class employeeList extends Component {
                   <TableCell>{person.name.last}, {person.name.first}</TableCell>
                   <TableCell>{person.phone}</TableCell>
                   <TableCell>{person.email}</TableCell>
-                  <TableCell>{person.dob.date}</TableCell>
+                  <TableCell>{moment(person.dob.date).calendar()}</TableCell>
                 </TableRow>
               )
             })}
