@@ -4,7 +4,7 @@ import axios from 'axios';
 import AppHeader from './AppHeader.js';
 import SearchResults from './SearchResults.js';
 
-class EmployeeDirectory extends Component {
+export default class EmployeeDirectory extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,36 +22,22 @@ class EmployeeDirectory extends Component {
   
   // https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
   compareLastName(a, b) {
-    if ( a.name.last < b.name.last ){
-      return -1;
-    }
-    if ( a.name.last > b.name.last ){
-      return 1;
-    }
+    if ( a.name.last < b.name.last ) return -1;
+    if ( a.name.last > b.name.last ) return 1;
     return 0;
   }
   compareEmail(a, b) {
-    if ( a.email < b.email ){
-      return -1;
-    }
-    if ( a.email > b.email ){
-      return 1;
-    }
+    if ( a.email < b.email ) return -1;
+    if ( a.email > b.email ) return 1;
     return 0;
   }
   comparePhone(a, b) {
-    if ( a.phone < b.phone ){
-      return -1;
-    }
-    if ( a.phone > b.phone ){
-      return 1;
-    }
+    if ( a.phone < b.phone ) return -1;
+    if ( a.phone > b.phone ) return 1;
     return 0;
   }
   compareDob(a, b) {
-    if ( a.dob.date < b.dob.date ){
-      return -1;
-    }
+    if ( a.dob.date < b.dob.date ) return -1;
     if ( a.dob.date > b.dob.date ) return 1;
     return 0;
   }
@@ -83,7 +69,6 @@ class EmployeeDirectory extends Component {
       filter,
       employeesFiltered,
     });
-    // this.sortEmployees(null, this.state.sortOrder)
   };
 
   sortEmployees = (sortFunc) => {
@@ -120,7 +105,7 @@ class EmployeeDirectory extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <AppHeader searchFunc={this.handleInputChange} />
         <SearchResults
           employeesFiltered={this.state.employeesFiltered}
@@ -128,9 +113,7 @@ class EmployeeDirectory extends Component {
           sortFunc={this.state.sortFunc}
           sortReversed={this.state.sortReversed}
         />
-      </div>
+      </>
     )
   }
 };
-
-export default EmployeeDirectory;
