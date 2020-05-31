@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import AppHeader from './AppHeader';
 
 class SearchForm extends Component {
   state = {
@@ -23,18 +24,7 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <Container
-        style={this.style}
-      >
-        <TextField 
-          variant='outlined'
-          label='Search'
-          name='search'
-          onChange={this.handleInputChange}
-          // value={this.state.search}
-        />
-      </Container>
-      
+      <AppHeader searchFunc={this.handleInputChange} />
     );
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Container from '@material-ui/core/Container';
 import EmployeeList from './components/EmployeeList';
-import AppHeader from './components/AppHeader';
+// import AppHeader from './components/AppHeader';
 
 function App() {
   return (

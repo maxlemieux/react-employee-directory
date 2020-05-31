@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AppHeader (props) {
+
+function AppHeader (props) {
   const classes = useStyles();
 
   return (
@@ -86,6 +87,7 @@ export default function AppHeader (props) {
               <SearchIcon />
             </div>
             <InputBase
+              onChange={props.searchFunc}
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
@@ -99,3 +101,5 @@ export default function AppHeader (props) {
     </div>
   )
 };
+
+export default AppHeader;
