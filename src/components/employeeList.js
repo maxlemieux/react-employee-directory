@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 import SearchForm from './SearchForm.js';
-import EmployeeRow from './EmployeeRow';
+import SearchResults from './SearchResults.js';
 
 class employeeList extends Component {
   constructor(props) {
@@ -122,68 +113,12 @@ class employeeList extends Component {
     return (
       <div>
         <SearchForm handleSearchFilter={this.handleSearchFilter} />
-
-        <TableContainer component={Paper}>
-        <Table aria-label="Employee List">
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell onClick={() => this.sortEmployees('compareLastName')}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  Name 
-                  {this.state.sortFunc==='compareLastName'
-                   && this.state.sortReversed === true
-                   && <ArrowDropDownIcon />}
-                  {this.state.sortFunc==='compareLastName'
-                   && this.state.sortReversed === false
-                   && <ArrowDropUpIcon />}
-                </div>
-              </TableCell>
-              <TableCell onClick={() => this.sortEmployees('comparePhone')}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  Phone
-                  {this.state.sortFunc==='comparePhone'
-                   && this.state.sortReversed === true
-                   && <ArrowDropDownIcon />}
-                  {this.state.sortFunc==='comparePhone'
-                   && this.state.sortReversed === false
-                   && <ArrowDropUpIcon />}
-                </div>
-              </TableCell>
-              <TableCell onClick={() => this.sortEmployees('compareEmail')}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  Email 
-                  {this.state.sortFunc==='compareEmail'
-                   && this.state.sortReversed === true
-                   && <ArrowDropDownIcon />}
-                  {this.state.sortFunc==='compareEmail'
-                   && this.state.sortReversed === false
-                   && <ArrowDropUpIcon />}
-                </div>
-              </TableCell>
-              <TableCell onClick={() => this.sortEmployees('compareDob')}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  DOB
-                  {this.state.sortFunc==='compareDob'
-                   && this.state.sortReversed === true
-                   && <ArrowDropDownIcon />}
-                  {this.state.sortFunc==='compareDob'
-                   && this.state.sortReversed === false
-                   && <ArrowDropUpIcon />}
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            { this.state.employeesFiltered.map(person => {
-              return (
-                /* This key isn't guaranteed to be unique but the odds are reasonably good */
-                <EmployeeRow person={person} key={person.email+person.phone} />
-              )
-            }) }
-          </TableBody>
-        </Table>
-        </TableContainer>
+        <SearchResults
+          employeesFiltered={this.state.employeesFiltered}
+          sortEmployees={this.sortEmployees}
+          sortFunc={this.state.sortFunc}
+          sortReversed={this.state.sortReversed}
+        />
       </div>
     )
   }
