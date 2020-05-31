@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import SearchForm from './SearchForm.js';
+import AppHeader from './AppHeader.js';
 import SearchResults from './SearchResults.js';
 
 class EmployeeDirectory extends Component {
@@ -14,6 +14,7 @@ class EmployeeDirectory extends Component {
       sortOrder: 'lastName',
       sortFunc: 'compareLastName',
       sortReversed: false,
+      search: '',
     };
   
     this.sortEmployees = this.sortEmployees.bind(this)
@@ -108,10 +109,19 @@ class EmployeeDirectory extends Component {
     });
   }
 
+  handleInputChange = event => {
+    let value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value
+    });
+    this.handleSearchFilter(value)
+  };
+
   render() {
     return (
       <div>
-        <SearchForm handleSearchFilter={this.handleSearchFilter} />
+        <AppHeader searchFunc={this.handleInputChange} />
         <SearchResults
           employeesFiltered={this.state.employeesFiltered}
           sortEmployees={this.sortEmployees}
