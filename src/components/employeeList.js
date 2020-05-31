@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -13,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import SearchForm from './SearchForm.js';
-// import AppHeader from './AppHeader.js';
+import EmployeeRow from './EmployeeRow';
 
 class employeeList extends Component {
   constructor(props) {
@@ -107,6 +106,8 @@ class employeeList extends Component {
         () => {
           if (this.state.sortReversed === true) {
             this.setState({employeesFiltered: employeesFiltered.reverse()});   
+          } else {
+            this.setState({employeesFiltered});   
           }
         }
       );
@@ -176,16 +177,10 @@ class employeeList extends Component {
           <TableBody>
             { this.state.employeesFiltered.map(person => {
               return (
-                // <Paper>foo</Paper>
-                <TableRow key={person.email+person.phone}>
-                  <TableCell><img src={person.picture.thumbnail} alt={person.name.first} /></TableCell>
-                  <TableCell>{person.name.last}, {person.name.first}</TableCell>
-                  <TableCell>{person.phone}</TableCell>
-                  <TableCell>{person.email}</TableCell>
-                  <TableCell>{moment(person.dob.date).calendar()}</TableCell>
-                </TableRow>
+                /* This key isn't guaranteed to be unique but the odds are reasonably good */
+                <EmployeeRow person={person} key={person.email+person.phone} />
               )
-            })}
+            }) }
           </TableBody>
         </Table>
         </TableContainer>

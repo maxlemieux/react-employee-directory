@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+// import Container from '@material-ui/core/Container';
+// import TextField from '@material-ui/core/TextField';
 import AppHeader from './AppHeader';
+// import { handleInputChange } from '../utils/search.js';
 
 class SearchForm extends Component {
   state = {
