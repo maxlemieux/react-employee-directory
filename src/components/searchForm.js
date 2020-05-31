@@ -9,11 +9,6 @@ class SearchForm extends Component {
     search: "",
   };
 
-  style = {
-    margin: '10px auto 10px',
-    textAlign: 'center',
-  }
-
   handleInputChange = event => {
     let value = event.target.value;
     const name = event.target.name;

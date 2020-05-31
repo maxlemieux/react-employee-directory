@@ -58,13 +58,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function AppHeader (props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             Employee Directory
@@ -85,6 +84,7 @@ export default function AppHeader (props) {
           </div>
         </Toolbar>
       </AppBar>
+      <Toolbar />
     </div>
   )
 };

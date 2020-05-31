@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-
 import SearchForm from './SearchForm.js';
 import SearchResults from './SearchResults.js';
 
-class employeeList extends Component {
+class EmployeeDirectory extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -124,4 +123,4 @@ class employeeList extends Component {
   }
 };
 
-export default employeeList;
+export default EmployeeDirectory;

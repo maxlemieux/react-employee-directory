@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
 import Container from '@material-ui/core/Container';
-import EmployeeList from './components/EmployeeList';
-// import AppHeader from './components/AppHeader';
+import EmployeeDirectory from './components/EmployeeDirectory';
 
 function App() {
   return (
     <Container>
-        {/* <AppHeader /> */}
-        <EmployeeList />
+        <EmployeeDirectory />
     </Container>
   );
 }
