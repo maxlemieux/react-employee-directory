@@ -45,6 +45,7 @@ A demo of the app can be found here:
 
 ## Technologies
 * React
+* Material UI
 * Axios
 * Node.js
 * Express.js
