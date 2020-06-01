@@ -8,6 +8,7 @@
 * [Usage](#usage)
 * [Demo](#demo)
 * [Technologies](#technologies)
+* [Bugs](#bugs)
 
 ## About
 School project: Employee directory front end built from scratch in React.js. Uses Axios to fetch data.
@@ -50,3 +51,6 @@ A demo of the app can be found here:
 * Material UI
 * Axios
 * Heroku
+
+## Bugs
+One of the dependencies of create-react-app is throwing a warning on npm audit. Updating the dependency doesn't fix the warning. See https://github.com/facebook/create-react-app/pull/8975 for more information. This is probably why the dependency badge on this page isn't passing its tests.
