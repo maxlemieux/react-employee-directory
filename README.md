@@ -34,6 +34,8 @@ Start the server:
 
 Load the app at [http://localhost:3000](http://localhost:3000).
 
+The list of employees is retrieved from an API. The result set changes on each page load.
+
 Search employees by name, email, phone or date of birth.
 
 Sort the table of results by name, email, phone or date of birth.
@@ -41,12 +43,10 @@ Sort the table of results by name, email, phone or date of birth.
 ## Demo
 A demo of the app can be found here:
 
-[https://react-employee-directory.herokuapp.com/](https://react-employee-directory.herokuapp.com/)
+[https://arcane-dusk-58843.herokuapp.com/](https://arcane-dusk-58843.herokuapp.com/)
 
 ## Technologies
 * React
 * Material UI
 * Axios
-* Node.js
-* Express.js
 * Heroku
